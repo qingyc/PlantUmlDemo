@@ -1,0 +1,38 @@
+'开始
+@startuml
+
+'可以使用 left right up down 定义方向
+
+
+'01.依赖
+A..>B :虚线依赖,\n代码中体现为\nA引用到B
+'02 关联
+Student --> Teacher :实线关联单向
+
+'03.实现
+'实现写法1
+class MyXListener implements XListener{
+}
+'实现写法2
+XListener02 "注释01" <|.. "注释02" MyXListener02 :实现
+
+
+'04. 继承
+'继成写法
+Class ExClass01 extends MyXListener{
+}
+'继承写法02
+MyXListener02<|--  ExClass02 :继承
+
+'05.聚合
+班级 o-- 学生 :聚合成班级
+
+'06.组合
+车 *-left-  底盘 : 组合
+车 *-up-  车身 : 组合
+车 *-down-  发动机 : 组合
+
+'结束
+@enduml
+
+

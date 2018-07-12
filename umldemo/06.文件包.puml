@@ -1,0 +1,36 @@
+@startuml
+
+'文件夹类型 Folder Node Rectangle DataBase Cloud Cloud
+package xxx.xxx.folder <<Folder>> {
+class A
+class B
+class C
+class D
+}
+package xxx.xxx.node <<Node>> {
+class A1
+class B1
+class C1
+class D1
+}
+package xxx.xxx.rectangle <<Rectangle>> {
+class A2
+class B2
+class C2
+class D2
+}
+package xxx.xxx.database <<DataBase>> {
+class A3
+class B3
+class C3
+class D3
+}
+
+'包关联
+xxx.xxx.database +--- xxx.xxx.folder : 关联
+xxx.xxx.database ... xxx.xxx.folder : 关联
+
+
+@enduml
+
+

@@ -1,0 +1,13 @@
+'开始
+@startuml
+
+enum 枚举颜色{
+红
+黄
+绿
+}
+
+annotation 注解
+@enduml
+
+

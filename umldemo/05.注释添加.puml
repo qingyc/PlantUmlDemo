@@ -1,0 +1,14 @@
+'开始
+@startuml
+
+note " 注释在下" as note01
+note " 注释在上" as note02
+'注释在上
+note02 .. O
+'注释在下
+O .. note01
+note "note 悬浮不指向任何类" as note的名字
+
+@enduml
+
+
