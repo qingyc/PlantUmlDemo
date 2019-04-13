@@ -4,8 +4,22 @@
 [在线绘制](http://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000)
 
 
-开始标签 ->@enduml
+未安装Graphviz
 
+[Graphviz介绍](https://zh.wikipedia.org/wiki/Graphviz)
+[DOT语言介绍](https://zh.wikipedia.org/wiki/DOT%E8%AF%AD%E8%A8%80)
+
+
+![](.README_images/bd009de0.png)
+
+
+安装graphviz
+```
+brew install graphviz
+```
+
+
+开始标签 ->@startuml
 结束标签 ->@enduml
 
 注释 -> `
