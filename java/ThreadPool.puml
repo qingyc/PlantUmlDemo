@@ -1,0 +1,102 @@
+@startuml
+
+
+note "Executor接口提供一执行方法，任务是Runnbale类型，不支持Callable" as note1
+note1 ..  Executor
+interface Executor {
+    void execute(Runnable command)
+}
+
+
+
+Executor   <|-- ExecutorService
+interface ExecutorService
+note left of ExecutorService :真正的线程池接口,主要提供了关闭线程池和submit方法
+interface ExecutorService   {
+
+    shutdown() :Void
+
+    shutdownNow() :List<Runnable>
+
+    isShutdown() :boolean
+
+    isTerminated() :boolean
+
+    awaitTermination(long timeout, TimeUnit unit) :boolean
+
+    submit(Callable<T> task) : <T> Future<T>
+
+    submit(Runnable task, T result) : <T> Future<T>
+
+    submit(Runnable task) :Future<?>
+
+    invokeAll(Collection<? extends Callable<T>> tasks) : <T> List<Future<T>>
+
+
+    invokeAll(Collection<? extends Callable<T>> tasks,long timeout, TimeUnit unit) : <T> List<Future<T>>
+
+    invokeAny(Collection<? extends Callable<T>> tasks,long timeout, TimeUnit unit) :<T> T
+
+}
+
+
+abstract class AbstractExecutorService implements ExecutorService {
+
+    # newTaskFor(Runnable runnable, T value) :<T> RunnableFuture<T>
+    # newTaskFor(Callable<T> callable) :<T> RunnableFuture<T>
+
+    + submit(Runnable task) :Future<?>
+    + submit(Runnable task, T result) :<T> Future<T>
+    + submit(Callable<T> task) :<T> Future<T>
+
+    + invokeAny(Collection<? extends Callable<T>> tasks) :<T> T
+    + invokeAny(Collection<? extends Callable<T>> tasks,long timeout, TimeUnit unit) :<T> T
+    + invokeAll(Collection<? extends Callable<T>> tasks) :<T> List<Future<T>>
+    + invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) :<T> List<Future<T>>
+
+}
+
+note left of ThreadPoolExecutor :ExecutorService的默认实现。
+class ThreadPoolExecutor extends AbstractExecutorService {
+
+    - volatile  keepAliveTime :long
+    - volatile  allowCoreThreadTimeOut :boolean
+    - volatile  corePoolSize :int
+    - volatile  maximumPoolSize :int
+
+
+    ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long keepAliveTime, TimeUnit unit,  BlockingQueue<Runnable> workQueue)
+}
+
+
+
+
+
+
+'计划或者周期性调度任务接口
+'note "扩展了ExecutorService。支持Future和定期执行任务" as note2
+'note2 .. ScheduledExecutorService
+note right of ScheduledExecutorService :扩展了ExecutorService。支持Future和计划任务
+interface ScheduledExecutorService
+
+ExecutorService <|-- ScheduledExecutorService
+
+note right of ScheduledThreadPoolExecutor :继承ThreadPoolExecutor的ScheduledExecutorService接口实现，周期性任务调度的类实现
+ScheduledThreadPoolExecutor -left-|> ThreadPoolExecutor
+ScheduledExecutorService <|.. ScheduledThreadPoolExecutor
+
+
+
+
+
+note "线程池工具类" as note5
+note5 .. Executors
+class Executors{
+ {static} newSingleThreadExecutor()
+ {static}  newFixedThreadPool(int nThreads)
+ {static}  newCachedThreadPool(int nThreads)
+ {static}  newScheduledThreadPool(int corePoolSize)
+
+}
+
+@enduml
